@@ -897,6 +897,15 @@ const datos = toSignal(datos$, { initialValue: [] });
 
 ---
 
+## ¿Listo para el siguiente nivel?
+
+Si ya dominas los conceptos de esta guía, continúa con la
+[Guía Avanzada → ADVANCED.md](./ADVANCED.md)
+
+*Requisito previo: haber completado los 9 módulos anteriores.*
+
+---
+
 ## Comandos del proyecto
 
 ```bash
@@ -929,6 +938,16 @@ ng build --configuration development
 ---
 
 *Proyecto educativo construido con Angular 22. Cada concepto está implementado en código real y funcional.*
+
+---
+
+## ¿Listo para el siguiente nivel?
+
+Si ya dominas los conceptos de esta guía, continúa con la guía avanzada:
+
+**[Guía Avanzada de Angular → ADVANCED.md](./ADVANCED.md)**
+
+Cubre HTTP real, interceptores, signals avanzados, routing avanzado, `@defer`, directivas, DI avanzada y más — todo sobre la misma aplicación DevPath.
 
 ## Running unit tests
 

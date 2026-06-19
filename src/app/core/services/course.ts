@@ -1,6 +1,9 @@
-import { Service } from '@angular/core';
-import { BehaviorSubject, Observable, combineLatest, debounceTime, distinctUntilChanged, map } from 'rxjs';
-import { MOCK_COURSES } from '../data/courses.data';
+import { inject, Service } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {
+  BehaviorSubject, Observable, combineLatest,
+  debounceTime, distinctUntilChanged, map, shareReplay,
+} from 'rxjs';
 import { Course, CourseCategory, CourseLevel } from '../models/course.model';
 
 export interface CourseFilters {
@@ -11,17 +14,19 @@ export interface CourseFilters {
 
 @Service()
 export class CourseService {
-  // Fuente de datos — nunca cambia
-  private readonly allCourses$ = new BehaviorSubject<Course[]>(MOCK_COURSES);
+  private readonly http = inject(HttpClient);
 
-  // Filtros — cambia cuando el usuario interactúa
+  // Llamada HTTP real — shareReplay(1) cachea la respuesta para no repetir la petición
+  private readonly allCourses$ = this.http.get<Course[]>('/api/courses').pipe(
+    shareReplay(1)
+  );
+
   private readonly filters$ = new BehaviorSubject<CourseFilters>({
     search: '',
     level: 'all',
     category: 'all',
   });
 
-  // Cursos filtrados — combinación reactiva de ambos
   readonly courses$: Observable<Course[]> = combineLatest([
     this.allCourses$,
     this.filters$.pipe(debounceTime(250), distinctUntilChanged()),
@@ -41,13 +46,12 @@ export class CourseService {
 
   private applyFilters(courses: Course[], filters: CourseFilters): Course[] {
     return courses.filter(course => {
-      const matchesSearch = filters.search === '' ||
+      const matchesSearch =
+        filters.search === '' ||
         course.title.toLowerCase().includes(filters.search.toLowerCase()) ||
         course.instructor.toLowerCase().includes(filters.search.toLowerCase());
-
       const matchesLevel = filters.level === 'all' || course.level === filters.level;
       const matchesCategory = filters.category === 'all' || course.category === filters.category;
-
       return matchesSearch && matchesLevel && matchesCategory;
     });
   }
