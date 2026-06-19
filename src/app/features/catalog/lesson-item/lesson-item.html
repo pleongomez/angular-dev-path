@@ -1,0 +1,11 @@
+<div class="lesson-item">
+  <span class="lesson-icon">
+    @switch (lesson().type) {
+      @case ('video')   { 🎬 }
+      @case ('article') { 📄 }
+      @case ('quiz')    { ✅ }
+    }
+  </span>
+  <span class="lesson-title">{{ lesson().title }}</span>
+  <span class="lesson-duration">{{ lesson().durationMinutes }} min</span>
+</div>

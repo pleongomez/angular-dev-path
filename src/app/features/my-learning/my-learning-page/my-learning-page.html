@@ -1,0 +1,56 @@
+<div class="my-learning-page">
+  <div class="page-header">
+    <h2>Mi aprendizaje</h2>
+    <p class="welcome">Hola, <strong>{{ auth.currentUser()?.name }}</strong></p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-value">{{ enrollmentService.totalEnrolled() }}</span>
+      <span class="stat-label">Cursos inscritos</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">{{ enrollmentService.totalCompleted() }}</span>
+      <span class="stat-label">Completados</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">{{ enrollmentService.averageProgress() }}%</span>
+      <span class="stat-label">Progreso medio</span>
+    </div>
+  </div>
+
+  <div class="enrollment-list">
+    @for (enrollment of enrollmentService.enrollments(); track enrollment.id) {
+      <div class="enrollment-card">
+        <img [src]="enrollment.course.imageUrl" [alt]="enrollment.course.title" />
+        <div class="enrollment-info">
+          <span class="badge badge--{{ enrollment.course.level }}">
+            {{ enrollment.course.level }}
+          </span>
+          <h3>{{ enrollment.course.title }}</h3>
+          <p class="instructor">{{ enrollment.course.instructor }}</p>
+
+          <div class="progress-bar-wrapper">
+            <div class="progress-bar">
+              <div
+                class="progress-fill"
+                [style.width.%]="enrollment.progressPercent"
+              ></div>
+            </div>
+            <span class="progress-label">{{ enrollment.progressPercent }}%</span>
+          </div>
+
+          <p class="lessons-done">
+            {{ enrollment.completedLessonIds.length }} /
+            {{ enrollment.course.lessons.length }} lecciones completadas
+          </p>
+        </div>
+      </div>
+    } @empty {
+      <div class="page-placeholder">
+        <h2>Sin inscripciones</h2>
+        <p>Aún no te has inscrito en ningún curso.</p>
+      </div>
+    }
+  </div>
+</div>

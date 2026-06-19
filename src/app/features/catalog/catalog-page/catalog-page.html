@@ -1,0 +1,19 @@
+<div class="catalog-page">
+  <div class="catalog-header">
+    <h2>Catálogo de cursos</h2>
+    <input
+      class="search-input"
+      type="search"
+      placeholder="Buscar cursos o instructor..."
+      (input)="updateSearch($any($event.target).value)"
+    />
+  </div>
+
+  <div class="course-grid">
+    @for (course of courses(); track course.id) {
+      <app-course-card [course]="course" />
+    } @empty {
+      <p class="no-results">No se encontraron cursos con esos filtros.</p>
+    }
+  </div>
+</div>

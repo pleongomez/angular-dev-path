@@ -1,0 +1,23 @@
+.lesson-list {
+  margin-top: 0.75rem;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s;
+
+  &:hover { opacity: 0.75; }
+}
+
+.lessons {
+  margin-top: 0.5rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}

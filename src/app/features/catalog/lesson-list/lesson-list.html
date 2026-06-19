@@ -1,0 +1,13 @@
+<div class="lesson-list">
+  <button class="toggle-btn" (click)="toggle()">
+    {{ expanded() ? '▲' : '▼' }} {{ lessons().length }} lecciones
+  </button>
+
+  @if (expanded()) {
+    <div class="lessons">
+      @for (lesson of lessons(); track lesson.id) {
+        <app-lesson-item [lesson]="lesson" />
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,15 @@
+<div class="course-card">
+  <img [src]="course().imageUrl" [alt]="course().title" />
+  <div class="card-body">
+    <span class="badge badge--{{ course().level }}">{{ course().level }}</span>
+    <h3>{{ course().title }}</h3>
+    <p class="instructor">{{ course().instructor }}</p>
+    <p class="description">{{ course().description }}</p>
+    <div class="card-meta">
+      <span>⭐ {{ course().rating }}</span>
+      <span>{{ course().durationMinutes }} min</span>
+      <span>{{ course().enrolledCount }} alumnos</span>
+    </div>
+    <app-lesson-list [lessons]="course().lessons" />
+  </div>
+</div>

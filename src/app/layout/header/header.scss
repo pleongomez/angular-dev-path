@@ -1,0 +1,116 @@
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: var(--header-height, 64px);
+  background: linear-gradient(90deg, #0f0c29 0%, #302b63 60%, #24243e 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06), 0 4px 24px rgba(0, 0, 0, 0.5);
+
+  .header-brand a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+
+    .brand-icon {
+      font-size: 1.4rem;
+      color: var(--color-accent, #a78bfa);
+      line-height: 1;
+    }
+
+    .brand-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  .header-nav ul {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    a {
+      position: relative;
+      display: block;
+      padding: 0.45rem 0.875rem;
+      color: rgba(255, 255, 255, 0.65);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-radius: var(--radius, 8px);
+      transition: color 0.2s, background-color 0.2s;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 3px;
+        left: 0.875rem;
+        right: 0.875rem;
+        height: 2px;
+        background: linear-gradient(90deg, var(--color-accent, #a78bfa), var(--color-primary, #6c63ff));
+        border-radius: 2px;
+        transform: scaleX(0);
+        transition: transform 0.25s ease;
+      }
+
+      &:hover {
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.07);
+      }
+
+      &.active {
+        color: #fff;
+
+        &::after {
+          transform: scaleX(1);
+        }
+      }
+    }
+  }
+
+  .header-auth {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+
+    .user-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    button {
+      padding: 0.4rem 1rem;
+      border: none;
+      border-radius: var(--radius, 8px);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+
+      &:hover {
+        opacity: 0.85;
+        transform: translateY(-1px);
+      }
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, #6c63ff, #a78bfa);
+      color: #fff;
+    }
+
+    .btn-logout {
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+  }
+}

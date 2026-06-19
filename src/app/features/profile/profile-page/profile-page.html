@@ -1,0 +1,57 @@
+<div class="profile-page">
+  <div class="page-header">
+    <h2>Mi perfil</h2>
+    <p class="subtitle">Actualiza tu información personal</p>
+  </div>
+
+  @if (saveSuccess()) {
+    <div class="alert alert--success">
+      ✅ Perfil guardado correctamente
+    </div>
+  }
+
+  <form class="profile-form" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="name">Nombre completo</label>
+      <input id="name" type="text" [formField]="profileForm.name" />
+      @if (submitted() && profileForm.name().errors().length) {
+        <span class="error">{{ profileForm.name().errors()[0].message }}</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" [formField]="profileForm.email" />
+      @if (submitted() && profileForm.email().errors().length) {
+        <span class="error">{{ profileForm.email().errors()[0].message }}</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="bio">
+        Biografía
+        <span class="char-count">
+          {{ profileForm.bio().value().length }} / 200
+        </span>
+      </label>
+      <textarea id="bio" rows="4" [formField]="profileForm.bio"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="website">Sitio web</label>
+      <input id="website" type="url" [formField]="profileForm.website"
+             placeholder="https://..." />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-save">
+        Guardar cambios
+      </button>
+      @if (submitted() && !profileForm().valid()) {
+        <span class="form-error">Revisa los campos obligatorios</span>
+      }
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,28 @@
+<header class="app-header">
+  <div class="header-brand">
+    <a routerLink="/">
+      <span class="brand-icon" aria-hidden="true">&#9672;</span>
+      <span class="brand-name">DevPath</span>
+    </a>
+  </div>
+
+  <nav class="header-nav" aria-label="Main navigation">
+    <ul>
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a></li>
+      <li><a routerLink="/catalog" routerLinkActive="active">Catálogo</a></li>
+      @if (auth.isAuthenticated()) {
+        <li><a routerLink="/my-learning" routerLinkActive="active">Mi aprendizaje</a></li>
+        <li><a routerLink="/profile" routerLinkActive="active">Perfil</a></li>
+      }
+    </ul>
+  </nav>
+
+  <div class="header-auth">
+    @if (auth.isAuthenticated()) {
+      <span class="user-name">{{ auth.currentUser()?.name }}</span>
+      <button class="btn-logout" (click)="logout()">Cerrar sesión</button>
+    } @else {
+      <button class="btn-login" (click)="login()">Iniciar sesión</button>
+    }
+  </div>
+</header>

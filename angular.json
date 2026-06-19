@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "lab-01": {
+    "dev-path": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -61,10 +61,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "lab-01:build:production"
+              "buildTarget": "dev-path:build:production"
             },
             "development": {
-              "buildTarget": "lab-01:build:development"
+              "buildTarget": "dev-path:build:development"
             }
           },
           "defaultConfiguration": "development"

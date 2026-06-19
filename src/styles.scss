@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary:      #6c63ff;
+  --color-primary-dark: #4b44cc;
+  --color-accent:       #a78bfa;
+  --color-bg:           #0d0d1a;
+  --color-surface:      #13132b;
+  --color-text:         #e2e8f0;
+  --color-text-muted:   #94a3b8;
+  --header-height:      64px;
+  --radius:             8px;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.page-placeholder {
+  max-width: 600px;
+  margin: 4rem auto;
+  padding: 2.5rem;
+  background: var(--color-surface);
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  border-radius: var(--radius);
+  text-align: center;
+
+  h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+}
+
