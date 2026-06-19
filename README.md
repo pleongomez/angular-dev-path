@@ -1,5 +1,9 @@
 # DevPath — Guía didáctica de Angular moderno
 
+![Angular](https://img.shields.io/badge/Angular-22-DD0031?logo=angular&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)
+![Educativo](https://img.shields.io/badge/tipo-educativo-4CAF50)
+
 Proyecto educativo construido con **Angular 22** que implementa una mini-plataforma de aprendizaje online. Cada sección de esta guía cubre un concepto clave del desarrollo Angular moderno, ilustrado con el código real de la aplicación.
 
 ---
@@ -21,7 +25,7 @@ Proyecto educativo construido con **Angular 22** que implementa una mini-platafo
 
 ## 1. Estructura del proyecto
 
-```
+```text
 src/app/
 ├── core/                         # Lógica compartida (no es una pantalla)
 │   ├── data/
@@ -58,7 +62,7 @@ src/app/
 
 Se usa **arquitectura por features** (dominio de negocio) en lugar de agrupar por tipo técnico. Comparación:
 
-```
+```text
 ❌ Por tipo técnico          ✅ Por feature (la que usamos)
 components/                  features/
   header/                      catalog/
@@ -79,7 +83,7 @@ services/                      my-learning/
 
 Sin lazy loading, Angular empaqueta toda la app en un único archivo JavaScript que el navegador descarga de golpe. Con lazy loading, cada sección se descarga solo cuando el usuario navega a ella.
 
-```
+```text
 Petición a /          → descarga main.js (bundle mínimo, ~100KB)
 Navega a /catalog     → descarga chunk-catalog.js (~20KB, solo cuando se necesita)
 Navega a /my-learning → descarga chunk-my-learning.js
@@ -142,7 +146,8 @@ export const CATALOG_ROUTES: Routes = [
 ];
 ```
 
-> **Clave**: el `import()` con paréntesis es JavaScript nativo. Es lo que le dice al navegador "descarga este módulo solo cuando lo necesites". Angular y el bundler (esbuild) detectan estos `import()` y crean los chunks automáticamente.
+> [!NOTE]
+> **Clave:** el `import()` con paréntesis es JavaScript nativo. Es lo que le dice al navegador "descarga este módulo solo cuando lo necesites". Angular y el bundler (esbuild) detectan estos `import()` y crean los chunks automáticamente.
 
 ---
 
@@ -296,7 +301,8 @@ export class EnrollmentService {
 }
 ```
 
-**Regla de oro**: si un valor **se puede calcular a partir de otro estado**, usa `computed()` en lugar de mantener una variable separada que tengas que actualizar manualmente.
+> [!TIP]
+> **Regla de oro:** si un valor **se puede calcular a partir de otro estado**, usa `computed()` en lugar de mantener una variable separada que tengas que actualizar manualmente.
 
 ### Signals en templates
 
@@ -443,7 +449,8 @@ Desde Angular 15, los guards son **funciones**, no clases. Más simples, más te
 }
 ```
 
-**Punto clave**: el guard se ejecuta antes de que el lazy loading descargue el chunk. Si el guard bloquea, el código de esa sección **nunca se descarga**.
+> [!NOTE]
+> **Punto clave:** el guard se ejecuta antes de que el lazy loading descargue el chunk. Si el guard bloquea, el código de esa sección **nunca se descarga**.
 
 ### `false` vs `router.parseUrl()`
 
@@ -454,7 +461,8 @@ return router.parseUrl('/'); // Redirige — mucho mejor experiencia de usuario
 
 `parseUrl()` devuelve un `UrlTree` que el router interpreta como "cancela esta navegación y ve a esta URL en su lugar".
 
-> **Importante**: los guards de cliente **no son seguridad real**. Son para la experiencia de usuario. Siempre valida permisos en el servidor.
+> [!WARNING]
+> **Importante:** los guards de cliente **no son seguridad real**. Son para la experiencia de usuario. Siempre valida permisos en el servidor.
 
 ---
 
@@ -509,7 +517,7 @@ readonly courses$: Observable<Course[]> = combineLatest([
 
 Funciona como un `computed()` pero para Observables:
 
-```
+```text
 allCourses$ emite  →  [cursos, filtros actuales]  →  applyFilters()  →  emite resultado
 filters$ emite     →  [cursos actuales, filtros]  →  applyFilters()  →  emite resultado
 ```
@@ -538,7 +546,7 @@ this.filters$.pipe(
 
 ### El flujo completo de datos en el catálogo
 
-```
+```text
 Usuario escribe "Angular"
        ↓
   updateSearch("Angular")
@@ -564,7 +572,7 @@ Usuario escribe "Angular"
 
 ### La jerarquía del catálogo
 
-```
+```text
 CatalogPage                    ← gestiona la lista y el buscador
   └── CourseCard               ← presenta un curso completo
         └── LessonList         ← gestiona expandir/colapsar
@@ -611,7 +619,7 @@ readonly lesson = input.required<Lesson>();
 
 ### Flujo de datos unidireccional
 
-```
+```text
 CatalogPage
   courses Signal<Course[]>
        ↓  [course]="course"
@@ -643,9 +651,10 @@ export class LessonList {
 }
 ```
 
-**Regla**: el estado debe vivir en el **nivel más bajo posible** que lo necesite.
-- Solo este componente necesita saber si está expandido → Signal local
-- Varios componentes necesitan saber quién está logado → Signal en `AuthService`
+> [!TIP]
+> **Regla:** el estado debe vivir en el **nivel más bajo posible** que lo necesite.
+> - Solo este componente necesita saber si está expandido → Signal local
+> - Varios componentes necesitan saber quién está logado → Signal en `AuthService`
 
 ### `@switch` en templates
 
@@ -770,7 +779,8 @@ profileForm.name().errors()
 </form>
 ```
 
-> **Atributos prohibidos con `[formField]`**: no uses `[disabled]`, `[readonly]`, `value`, `[value]`, `min`, `max` — el directive ya los gestiona internamente.
+> [!WARNING]
+> **Atributos prohibidos con `[formField]`:** no uses `[disabled]`, `[readonly]`, `value`, `[value]`, `min`, `max` — el directive ya los gestiona internamente.
 
 ### Gestión del envío
 
@@ -919,34 +929,6 @@ ng build --configuration development
 ---
 
 *Proyecto educativo construido con Angular 22. Cada concepto está implementado en código real y funcional.*
-
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
 ## Running unit tests
 
